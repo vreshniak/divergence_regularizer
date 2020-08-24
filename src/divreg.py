@@ -21,7 +21,7 @@ def exact_jacobian(output, input, create_graph=True):
 	return torch.stack(jacobian, dim=0).reshape(output.shape+input.shape)
 
 
-class divreg(torch.nn.Module):
+class DivergenceReg(torch.nn.Module):
 	def __init__(self, n=1):
 		self.n = n
 		super(divreg, self).__init__()
