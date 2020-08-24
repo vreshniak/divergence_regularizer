@@ -32,7 +32,6 @@ class DivergenceReg(torch.nn.Module):
 		Compute divergence averaged over batch dimension
 		'''
 		batch_dim = input.size()[0]
-		input.requires_grad = True
 
 		if method=='rnd':
 			# Randomized version based on Hutchinson algorithm for trace evaluation
