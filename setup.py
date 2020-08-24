@@ -5,7 +5,8 @@ from Cython.Build        import cythonize
 
 setup(name="divreg",
 	version='0.1.0',
-	package_dir={'': 'src'},
+	packages=["divreg"],
+	package_dir={'divreg': 'src'},
 	author='Viktor Reshniak',
 	author_email='reshniakv@ornl.gov'
 	)
