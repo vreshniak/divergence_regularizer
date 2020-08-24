@@ -24,7 +24,7 @@ def exact_jacobian(output, input, create_graph=True):
 class DivergenceReg(torch.nn.Module):
 	def __init__(self, n=1):
 		self.n = n
-		super(divreg, self).__init__()
+		super(DivergenceReg, self).__init__()
 
 
 	def forward(self, output, input, create_graph=True, method='rnd'):
