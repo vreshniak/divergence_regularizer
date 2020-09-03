@@ -22,18 +22,19 @@ def exact_jacobian(output, input, create_graph=True):
 
 
 class DivergenceReg(torch.nn.Module):
-	def __init__(self, n=1):
+	def __init__(self, n=1, method='rnd'):
 		self.n = n
+		self.method = method
 		super(DivergenceReg, self).__init__()
 
 
-	def forward(self, output, input, create_graph=True, method='rnd'):
+	def forward(self, output, input, create_graph=True):
 		'''
 		Compute divergence averaged over batch dimension
 		'''
 		batch_dim = input.size()[0]
 
-		if method=='rnd':
+		if self.method=='rnd':
 			# Randomized version based on Hutchinson algorithm for trace evaluation
 			reg = 0
 			for _ in range(self.n):
@@ -47,7 +48,7 @@ class DivergenceReg(torch.nn.Module):
 				reg = reg + (v*jac_v).sum()
 			reg = reg / self.n / batch_dim
 
-		elif method=='exact':
+		elif self.method=='exact':
 			jac = exact_jacobian(output, input, create_graph).reshape((batch_dim,output.numel()//batch_dim,batch_dim,input.numel()//batch_dim))
 			# divergence of each batch dimension
 			reg = torch.stack([ jac[i,:,i,:].diag().sum() for i in range(batch_dim) ], dim=0)
